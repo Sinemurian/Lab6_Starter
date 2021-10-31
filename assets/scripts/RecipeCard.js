@@ -117,6 +117,7 @@ class RecipeCard extends HTMLElement {
     //p.setAttribute(title, );
     //title = data.name;//use searchforkey
     //titleElem = searchForKey(data, 'title')
+    titleElem.setAttribute("class", "title")
     titleElem.innerText = searchForKey(data, 'headline')
     console.log(searchForKey(data, '@id'))
     //titleElem.setAttribute("href", getUrl(searchForKey(data, '@id')))
@@ -132,39 +133,51 @@ class RecipeCard extends HTMLElement {
     //console.log(data.graph[5])
   
     //srcElem.src.setAttribute(getUrl(searchForKey(data, "image")))
-    srcElem.src = searchForKey(data, "thumbnailUrl")
+    //srcElem.src = searchForKey(data, "thumbnailUrl")
+    srcElem.setAttribute('src', (searchForKey(data, "thumbnailUrl")))
+    srcElem.setAttribute('alt', searchForKey(data, 'headline'))
     /*if (srcElem.src == null){
       srcElem.src = searchForKey(data, "thumbnailUrl")
     }*/
     //if
+    ratingElem.setAttribute("class", "rating")
     const fullRating = searchForKey(data, "aggregateRating")
     if (fullRating == null) {
       ratingNumElem.innerText = "No Reviews";
+      ratingNumElem.setAttribute('innerText', "No Reviews")
     }
     else{
       console.log(searchForKey(data, "ratingValue"))
       const rating = searchForKey(fullRating, "ratingValue");
       const count = searchForKey(fullRating, "ratingCount");
       ratingNumElem.innerText = rating
+      //ratingNumElem.setAttribute('innerText', rating)
       ratingCountElem.innerText = count
+      //ratingCountElem.setAttribute('innerText', count)
       //constRatingRounded = Math.round(rating)
       if (rating > 4) {
-        ratingImgElem.src = "assets/images/icons//5-star.svg"
+        //ratingImgElem.src = "assets/images/icons//5-star.svg"
+        ratingImgElem.setAttribute('src', "assets/images/icons//5-star.svg")
       }
       else if (rating > 3){
-        ratingImgElem.src = "assets/images/icons//4-star.svg"
+        //ratingImgElem.src = "assets/images/icons//4-star.svg"
+        ratingImgElem.setAttribute('src', "assets/images/icons//5-star.svg")
       }
       else if (rating > 2){
-        ratingImgElem.src = "assets/images/icons//3-star.svg"
+        //ratingImgElem.src = "assets/images/icons//3-star.svg"
+        ratingImgElem.setAttribute('src', "assets/images/icons//5-star.svg")
       }
       else if (rating > 1){
-        ratingImgElem.src = "assets/images/icons//2-star.svg"
+        //ratingImgElem.src = "assets/images/icons//2-star.svg"
+        ratingImgElem.setAttribute('src', "assets/images/icons//5-star.svg")
       }
       else if (rating > 0) {
-        ratingImgElem.src = "assets/images/icons//1-star.svg"
+        //ratingImgElem.src = "assets/images/icons//1-star.svg"
+        ratingImgElem.setAttribute('src', "assets/images/icons//5-star.svg")
       }
       else {
-        ratingImgElem.src = "assets/images/icons//0-star.svg"
+        //ratingImgElem.src = "assets/images/icons//0-star.svg"
+        ratingImgElem.setAttribute('src', "assets/images/icons//5-star.svg")
       }
       /*
       else if (rating == 4){
@@ -183,11 +196,16 @@ class RecipeCard extends HTMLElement {
     //console.log(searchForKey(data, "aggregateRating")) //getting undefined
     
     //srcElem.setAttribute()
+    organizationElem.setAttribute("class", "organization")
     organizationElem.innerText = getOrganization(data);
     //ratingElem.innerText =
     //rating = ();
     //time = (convertTime(data.preptime));
+    ingredientsElem.setAttribute("class", 'ingredients')
     ingredientsElem.innerText = createIngredientList(searchForKey(data, "recipeIngredient"));
+    //const ingredientsList = createIngredientList(searchForKey(data, "recipeIngredient"))
+    //ingredientsElem.setAttribute('innerText', ingredientsList)
+    //console.log(ingredientsElem.innerText)
 
     this.shadowRoot.appendChild(styleElem)
     this.shadowRoot.appendChild(card)
