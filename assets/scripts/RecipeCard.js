@@ -1,8 +1,9 @@
 class RecipeCard extends HTMLElement {
   constructor() {
     // Part 1 Expose - TODO
-
+    super();
     // You'll want to attach the shadow DOM here
+    let shadow = this.attachShadow({mode: 'open'});
   }
 
   set data(data) {
@@ -100,6 +101,107 @@ class RecipeCard extends HTMLElement {
     // created in the constructor()
 
     // Part 1 Expose - TODO
+    // create elements
+    const titleElem = document.createElement("a");
+    const srcElem = document.createElement('img');
+    const organizationElem = document.createElement("organization");
+    const ratingElem = document.createElement("div");
+    const ratingImgElem = document.createElement('img')
+    const timeElem = document.createElement("time");
+    const ingredientsElem = document.createElement("p")
+    const ratingNumElem = document.createElement("span")
+    const ratingCountElem = document.createElement("span")
+    
+    // data.name returns "Spooky Ghost Cookies"
+
+    //p.setAttribute(title, );
+    //title = data.name;//use searchforkey
+    //titleElem = searchForKey(data, 'title')
+    titleElem.innerText = searchForKey(data, 'headline')
+    console.log(searchForKey(data, '@id'))
+    //titleElem.setAttribute("href", getUrl(searchForKey(data, '@id')))
+    titleElem.href = searchForKey(data, '@id')
+    //ratingElem. = 
+    timeElem.innerText = convertTime(searchForKey(data, "totalTime"))
+
+    //srcElem.setAttribute("src", getUrl(data));
+    //console.log()
+    //console.log(getUrl(data))
+    //srcElem.src = getUrl(data.logo)
+    //srcElem.src = getUrl(searchForKey(data, "image"))
+    //console.log(data.graph[5])
+  
+    //srcElem.src.setAttribute(getUrl(searchForKey(data, "image")))
+    srcElem.src = searchForKey(data, "thumbnailUrl")
+    /*if (srcElem.src == null){
+      srcElem.src = searchForKey(data, "thumbnailUrl")
+    }*/
+    //if
+    const fullRating = searchForKey(data, "aggregateRating")
+    if (fullRating == null) {
+      ratingNumElem.innerText = "No Reviews";
+    }
+    else{
+      console.log(searchForKey(data, "ratingValue"))
+      const rating = searchForKey(fullRating, "ratingValue");
+      const count = searchForKey(fullRating, "ratingCount");
+      ratingNumElem.innerText = rating
+      ratingCountElem.innerText = count
+      //constRatingRounded = Math.round(rating)
+      if (rating > 4) {
+        ratingImgElem.src = "assets/images/icons//5-star.svg"
+      }
+      else if (rating > 3){
+        ratingImgElem.src = "assets/images/icons//4-star.svg"
+      }
+      else if (rating > 2){
+        ratingImgElem.src = "assets/images/icons//3-star.svg"
+      }
+      else if (rating > 1){
+        ratingImgElem.src = "assets/images/icons//2-star.svg"
+      }
+      else if (rating > 0) {
+        ratingImgElem.src = "assets/images/icons//1-star.svg"
+      }
+      else {
+        ratingImgElem.src = "assets/images/icons//0-star.svg"
+      }
+      /*
+      else if (rating == 4){
+        
+      }
+      else if (rating == 5){
+        ratingImgElem.src = ".images/icons/5-star.svg"
+      }
+      */
+    
+    }
+    
+    //const rating = searchForKey(fullRating, "ratingValue");
+    //console.log(rating);
+    //console.log(fullRating.ratingValue)
+    //console.log(searchForKey(data, "aggregateRating")) //getting undefined
+    
+    //srcElem.setAttribute()
+    organizationElem.innerText = getOrganization(data);
+    //ratingElem.innerText =
+    //rating = ();
+    //time = (convertTime(data.preptime));
+    ingredientsElem.innerText = createIngredientList(searchForKey(data, "recipeIngredient"));
+
+    this.shadowRoot.appendChild(styleElem)
+    this.shadowRoot.appendChild(card)
+    //shadow.appendChild(article)
+    //shadow.appendChild(styleElem)
+    card.appendChild(srcElem)
+    card.appendChild(titleElem)
+    card.appendChild(organizationElem)
+    ratingElem.appendChild(ratingNumElem)
+    ratingElem.appendChild(ratingImgElem)
+    ratingElem.appendChild(ratingCountElem)
+    card.appendChild(ratingElem)
+    card.appendChild(timeElem)
+    card.appendChild(ingredientsElem)
   }
 }
 
